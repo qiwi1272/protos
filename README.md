@@ -43,6 +43,7 @@ This repo is set up for Buff Schema Registry:
 Contributing
 -------------
 Contributions are welcome! Please open issues or pull requests as needed.
+
 ## Releasing
 
 Releases are manual. Pushing or merging to `main` does not publish anything.
