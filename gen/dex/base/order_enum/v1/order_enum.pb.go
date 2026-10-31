@@ -185,7 +185,7 @@ const file_dex_base_order_enum_v1_order_enum_proto_rawDesc = "" +
 	"\x18ORDER_ENGINE_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11ORDER_ENGINE_PERP\x10\x01\x12\x15\n" +
 	"\x11ORDER_ENGINE_SPOT\x10\x02B\xdd\x01\n" +
-	"\x1acom.dex.base.order_enum.v1B\x0eOrderEnumProtoP\x01Z8roundinternet.money/protos/gen/dex/base/order_enum/v1;pb\xa2\x02\x03DBO\xaa\x02\x15Dex.Base.OrderEnum.V1\xca\x02\x15Dex\\Base\\OrderEnum\\V1\xe2\x02!Dex\\Base\\OrderEnum\\V1\\GPBMetadata\xea\x02\x18Dex::Base::OrderEnum::V1b\x06proto3"
+	"\x1acom.dex.base.order_enum.v1B\x0eOrderEnumProtoP\x01Z8github.com/qiwi1272/protos/gen/dex/base/order_enum/v1;pb\xa2\x02\x03DBO\xaa\x02\x15Dex.Base.OrderEnum.V1\xca\x02\x15Dex\\Base\\OrderEnum\\V1\xe2\x02!Dex\\Base\\OrderEnum\\V1\\GPBMetadata\xea\x02\x18Dex::Base::OrderEnum::V1b\x06proto3"
 
 var (
 	file_dex_base_order_enum_v1_order_enum_proto_rawDescOnce sync.Once

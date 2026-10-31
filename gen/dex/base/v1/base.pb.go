@@ -548,7 +548,7 @@ const file_dex_base_v1_base_proto_rawDesc = "" +
 	"\vDEX_BINANCE\x10\x04\x12\r\n" +
 	"\tDEX_BYBIT\x10\x05\x12\v\n" +
 	"\aDEX_HTX\x10\x06B\x99\x01\n" +
-	"\x0fcom.dex.base.v1B\tBaseProtoP\x01Z-roundinternet.money/protos/gen/dex/base/v1;pb\xa2\x02\x03DBX\xaa\x02\vDex.Base.V1\xca\x02\vDex\\Base\\V1\xe2\x02\x17Dex\\Base\\V1\\GPBMetadata\xea\x02\rDex::Base::V1b\x06proto3"
+	"\x0fcom.dex.base.v1B\tBaseProtoP\x01Z-github.com/qiwi1272/protos/gen/dex/base/v1;pb\xa2\x02\x03DBX\xaa\x02\vDex.Base.V1\xca\x02\vDex\\Base\\V1\xe2\x02\x17Dex\\Base\\V1\\GPBMetadata\xea\x02\rDex::Base::V1b\x06proto3"
 
 var (
 	file_dex_base_v1_base_proto_rawDescOnce sync.Once

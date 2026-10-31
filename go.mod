@@ -1,4 +1,4 @@
-module roundinternet.money/protos
+module github.com/qiwi1272/protos
 
 // v0.2.0 — dex.hub.v1 Service + NATS micro stubs
 go 1.25.3

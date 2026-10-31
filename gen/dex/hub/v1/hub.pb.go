@@ -7,12 +7,12 @@
 package hubpb
 
 import (
+	v11 "github.com/qiwi1272/protos/gen/dex/base/status/v1"
+	v1 "github.com/qiwi1272/protos/gen/dex/base/v1"
 	_ "github.com/toyz/protoc-gen-nats-micro/gen/nats/micro"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
-	v11 "roundinternet.money/protos/gen/dex/base/status/v1"
-	v1 "roundinternet.money/protos/gen/dex/base/v1"
 	sync "sync"
 	unsafe "unsafe"
 )
@@ -2154,7 +2154,7 @@ const file_dex_hub_v1_hub_proto_rawDesc = "" +
 	"\x02\b\x03\x1a\x11\n" +
 	"\toperation\x12\x04read\x1a%\x8a\xb5\x18!\n" +
 	"\thub_admin\x12\rdex_hub_admin\x1a\x050.2.0B\x95\x01\n" +
-	"\x0ecom.dex.hub.v1B\bHubProtoP\x01Z/roundinternet.money/protos/gen/dex/hub/v1;hubpb\xa2\x02\x03DHX\xaa\x02\n" +
+	"\x0ecom.dex.hub.v1B\bHubProtoP\x01Z/github.com/qiwi1272/protos/gen/dex/hub/v1;hubpb\xa2\x02\x03DHX\xaa\x02\n" +
 	"Dex.Hub.V1\xca\x02\n" +
 	"Dex\\Hub\\V1\xe2\x02\x16Dex\\Hub\\V1\\GPBMetadata\xea\x02\fDex::Hub::V1b\x06proto3"
 

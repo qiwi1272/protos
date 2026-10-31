@@ -7,11 +7,11 @@
 package pb
 
 import (
+	v1 "github.com/qiwi1272/protos/gen/dex/base/status/v1"
 	_ "github.com/toyz/protoc-gen-nats-micro/gen/nats/micro"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
-	v1 "roundinternet.money/protos/gen/dex/base/status/v1"
 	sync "sync"
 	unsafe "unsafe"
 )
@@ -1446,7 +1446,7 @@ const file_dex_base_v1_reader_proto_rawDesc = "" +
 	"\n" +
 	"Downstream\x12\x1e.dex.base.v1.DownstreamRequest\x1a\x1f.dex.base.v1.DownstreamResponse\"\x00(\x010\x01\x1a'\x8a\xb5\x18#\n" +
 	"\x06reader\x12\x12dex_reader_service\x1a\x050.0.1B\x9b\x01\n" +
-	"\x0fcom.dex.base.v1B\vReaderProtoP\x01Z-roundinternet.money/protos/gen/dex/base/v1;pb\xa2\x02\x03DBX\xaa\x02\vDex.Base.V1\xca\x02\vDex\\Base\\V1\xe2\x02\x17Dex\\Base\\V1\\GPBMetadata\xea\x02\rDex::Base::V1b\x06proto3"
+	"\x0fcom.dex.base.v1B\vReaderProtoP\x01Z-github.com/qiwi1272/protos/gen/dex/base/v1;pb\xa2\x02\x03DBX\xaa\x02\vDex.Base.V1\xca\x02\vDex\\Base\\V1\xe2\x02\x17Dex\\Base\\V1\\GPBMetadata\xea\x02\rDex::Base::V1b\x06proto3"
 
 var (
 	file_dex_base_v1_reader_proto_rawDescOnce sync.Once
