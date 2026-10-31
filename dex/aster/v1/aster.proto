@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-option go_package = "github.com/qiwi1272/protos/gen/dex/aster/v1;pb";
-
 package dex.aster.v1;
+
+option go_package = "github.com/qiwi1272/protos/gen/dex/aster/v1;pb";
 
 message StreamMessage {
   string stream = 1;
   bytes data = 2;
 }
-//TODO: Account Information V4 (USER_DATA) 
+//TODO: Account Information V4 (USER_DATA)
 
 message AssetSnapshot {
   repeated Asset symbols = 1;
@@ -24,8 +24,8 @@ message Filter {
   string filter_type = 1;
 
   // Binance-style numeric strings kept as string
-  string min_qty   = 2;
-  string max_qty   = 3;
+  string min_qty = 2;
+  string max_qty = 3;
   string step_size = 4;
   string tick_size = 5;
 }

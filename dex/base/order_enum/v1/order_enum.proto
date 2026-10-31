@@ -1,23 +1,23 @@
 syntax = "proto3";
 
-option go_package = "github.com/qiwi1272/protos/gen/dex/base/order_enum/v1;pb";
-
 package dex.base.order_enum.v1;
 
+option go_package = "github.com/qiwi1272/protos/gen/dex/base/order_enum/v1;pb";
+
 enum Side {
-    SIDE_UNSPECIFIED = 0;
-    SIDE_BUY = 1; // offer with bids
-    SIDE_SELL = 2; // offer with asks
+  SIDE_UNSPECIFIED = 0;
+  SIDE_BUY = 1; // offer with bids
+  SIDE_SELL = 2; // offer with asks
 }
 
 enum OrderType {
-    ORDER_TYPE_UNSPECIFIED = 0;
-    ORDER_TYPE_LIMIT = 1; // limit
-    ORDER_TYPE_MARKET = 2; // market
+  ORDER_TYPE_UNSPECIFIED = 0;
+  ORDER_TYPE_LIMIT = 1; // limit
+  ORDER_TYPE_MARKET = 2; // market
 }
 
 enum OrderEngine {
-    ORDER_ENGINE_UNSPECIFIED = 0;
-    ORDER_ENGINE_PERP = 1;
-    ORDER_ENGINE_SPOT = 2;    
+  ORDER_ENGINE_UNSPECIFIED = 0;
+  ORDER_ENGINE_PERP = 1;
+  ORDER_ENGINE_SPOT = 2;
 }

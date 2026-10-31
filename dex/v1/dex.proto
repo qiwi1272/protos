@@ -1,15 +1,15 @@
 syntax = "proto3";
 
-option go_package = "github.com/qiwi1272/protos/gen/dex/v1;pb";
-
 package dex.v1;
 
 import "dex/aster/v1/aster.proto";
 import "dex/ethereal/v1/rest.proto";
 
+option go_package = "github.com/qiwi1272/protos/gen/dex/v1;pb";
+
 message Asset {
   oneof asset {
     dex.aster.v1.AssetSnapshot aster = 1;
-    dex.ethereal.v1.AssetSnapshot ethereal = 2; 
+    dex.ethereal.v1.AssetSnapshot ethereal = 2;
   }
 }
