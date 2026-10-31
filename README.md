@@ -43,3 +43,11 @@ This repo is set up for Buff Schema Registry:
 Contributing
 -------------
 Contributions are welcome! Please open issues or pull requests as needed.
+## Releasing
+
+Releases are manual. Pushing or merging to `main` does not publish anything.
+
+1. Go to **Actions → Release → Run workflow**.
+2. Enter the version (for example `0.2.0`) and run it.
+
+The workflow tags `v<version>` and publishes the GitHub release marked as **Latest**. Locally, `make release NEW_VERSION=0.2.0` does the same. Only `0.x.y` / `1.x.y` versions that aren't already tagged are accepted: Go ignores non-semver tags such as `v0.1.2.1`, and the module path has no `/vN` suffix.
