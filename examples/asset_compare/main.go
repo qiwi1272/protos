@@ -4,7 +4,7 @@ package main
 import (
 	"fmt"
 
-	basev1 "roundinternet.money/protos/gen/dex/base/v1"
+	basev1 "github.com/qiwi1272/protos/gen/dex/base/v1"
 )
 
 // compare succesfuly, then change the lengths of the lists

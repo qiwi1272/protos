@@ -4,7 +4,7 @@ package main
 import (
 	"fmt"
 
-	pb "roundinternet.money/protos/gen/dex/base/v1"
+	pb "github.com/qiwi1272/protos/gen/dex/base/v1"
 )
 
 func main() {

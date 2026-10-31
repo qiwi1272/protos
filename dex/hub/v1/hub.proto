@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "roundinternet.money/protos/gen/dex/hub/v1;hubpb";
+option go_package = "github.com/qiwi1272/protos/gen/dex/hub/v1;hubpb";
 
 package dex.hub.v1;
 

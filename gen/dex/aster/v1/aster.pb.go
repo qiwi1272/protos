@@ -756,7 +756,7 @@ const file_dex_aster_v1_aster_proto_rawDesc = "" +
 	"\vupdate_time\x18\r \x01(\x03R\n" +
 	"updateTimeB\xa0\x01\n" +
 	"\x10com.dex.aster.v1B\n" +
-	"AsterProtoP\x01Z.roundinternet.money/protos/gen/dex/aster/v1;pb\xa2\x02\x03DAX\xaa\x02\fDex.Aster.V1\xca\x02\fDex\\Aster\\V1\xe2\x02\x18Dex\\Aster\\V1\\GPBMetadata\xea\x02\x0eDex::Aster::V1b\x06proto3"
+	"AsterProtoP\x01Z.github.com/qiwi1272/protos/gen/dex/aster/v1;pb\xa2\x02\x03DAX\xaa\x02\fDex.Aster.V1\xca\x02\fDex\\Aster\\V1\xe2\x02\x18Dex\\Aster\\V1\\GPBMetadata\xea\x02\x0eDex::Aster::V1b\x06proto3"
 
 var (
 	file_dex_aster_v1_aster_proto_rawDescOnce sync.Once

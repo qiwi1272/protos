@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/nats-io/nats.go"
-	basev1 "roundinternet.money/protos/gen/dex/base/v1"
-	pb "roundinternet.money/protos/gen/dex/base/v1"
+	basev1 "github.com/qiwi1272/protos/gen/dex/base/v1"
+	pb "github.com/qiwi1272/protos/gen/dex/base/v1"
 )
 
 var ErrMatch = errors.New("invalid request: dex does not match")

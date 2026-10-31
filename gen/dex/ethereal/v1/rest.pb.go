@@ -7,10 +7,10 @@
 package pb
 
 import (
+	v1 "github.com/qiwi1272/protos/gen/dex/base/order_enum/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
-	v1 "roundinternet.money/protos/gen/dex/base/order_enum/v1"
 	sync "sync"
 	unsafe "unsafe"
 )
@@ -248,7 +248,7 @@ const file_dex_ethereal_v1_rest_proto_rawDesc = "" +
 	"\x19max_position_notional_usd\x18\x0f \x01(\tR\x16maxPositionNotionalUsd\"5\n" +
 	"\rAssetSnapshot\x12$\n" +
 	"\x01a\x18\x01 \x03(\v2\x16.dex.ethereal.v1.AssetR\x01aB\xb1\x01\n" +
-	"\x13com.dex.ethereal.v1B\tRestProtoP\x01Z1roundinternet.money/protos/gen/dex/ethereal/v1;pb\xa2\x02\x03DEX\xaa\x02\x0fDex.Ethereal.V1\xca\x02\x0fDex\\Ethereal\\V1\xe2\x02\x1bDex\\Ethereal\\V1\\GPBMetadata\xea\x02\x11Dex::Ethereal::V1b\x06proto3"
+	"\x13com.dex.ethereal.v1B\tRestProtoP\x01Z1github.com/qiwi1272/protos/gen/dex/ethereal/v1;pb\xa2\x02\x03DEX\xaa\x02\x0fDex.Ethereal.V1\xca\x02\x0fDex\\Ethereal\\V1\xe2\x02\x1bDex\\Ethereal\\V1\\GPBMetadata\xea\x02\x11Dex::Ethereal::V1b\x06proto3"
 
 var (
 	file_dex_ethereal_v1_rest_proto_rawDescOnce sync.Once
