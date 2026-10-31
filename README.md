@@ -1,11 +1,11 @@
 # Protobuf implementations for DEXs
 
-[![Go Reference](https://pkg.go.dev/badge/roundinternet.money/proto.svg)](https://pkg.go.dev/roundinternet.money/proto)
+[![Go Reference](https://pkg.go.dev/badge/github.com/qiwi1272/protos.svg)](https://pkg.go.dev/github.com/qiwi1272/protos)
 
 ## Getting started
 
 - Requires Go 1.25+.
-- Install from GitHub: `go get github.com/roundinternetmoney/protos`
+- Install from GitHub: `go get github.com/qiwi1272/protos`
 
 ## Example Usage
 
@@ -15,7 +15,7 @@ package main
 import (
 	"fmt"
 
-	pb "roundinternet.money/protos/gen/dex/base/v1"
+	pb "github.com/qiwi1272/protos/gen/dex/base/v1"
 )
 
 func main() {
