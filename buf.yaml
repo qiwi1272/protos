@@ -14,3 +14,7 @@ lint:
 breaking:
   use:
     - FILE
+  # dex/meridian/v1 is unreleased and being aligned with the live wire format.
+  # Remove this once v0.2.0 is tagged.
+  ignore:
+    - dex/meridian

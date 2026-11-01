@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option go_package = "github.com/qiwi1272/protos/gen/dex/base/v1;pb";
-
 package dex.base.v1;
+
+option go_package = "github.com/qiwi1272/protos/gen/dex/base/v1;pb";
 
 enum Dex {
   DEX_UNSPECIFIED = 0;
@@ -45,7 +45,7 @@ message BookLevel {
 }
 
 message Mid {
-  string asset = 1; 
+  string asset = 1;
   double px = 2;
 }
 

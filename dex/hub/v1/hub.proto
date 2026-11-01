@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-option go_package = "github.com/qiwi1272/protos/gen/dex/hub/v1;hubpb";
-
 package dex.hub.v1;
 
-import "dex/base/v1/base.proto";
 import "dex/base/status/v1/status.proto";
+import "dex/base/v1/base.proto";
 import "natsmicro/options.proto";
+
+option go_package = "github.com/qiwi1272/protos/gen/dex/hub/v1;hubpb";
 
 // HubService aggregates cross-venue market state, risk, and policy outputs for LP consumers.
 service HubService {
@@ -18,52 +18,73 @@ service HubService {
 
   rpc StreamFairValue(StreamFairValueRequest) returns (stream StreamFairValueResponse) {
     option (natsmicro.endpoint) = {
-      metadata: { key: "operation" value: "stream" }
-      timeout: { seconds: 0 }
+      metadata: {
+        key: "operation"
+        value: "stream"
+      }
+      timeout: {seconds: 0}
     };
-  };
+  }
 
   rpc StreamBook(StreamBookRequest) returns (stream StreamBookResponse) {
     option (natsmicro.endpoint) = {
-      metadata: { key: "operation" value: "stream" }
-      timeout: { seconds: 0 }
+      metadata: {
+        key: "operation"
+        value: "stream"
+      }
+      timeout: {seconds: 0}
     };
-  };
+  }
 
   rpc StreamRisk(StreamRiskRequest) returns (stream StreamRiskResponse) {
     option (natsmicro.endpoint) = {
-      metadata: { key: "operation" value: "stream" }
-      timeout: { seconds: 0 }
+      metadata: {
+        key: "operation"
+        value: "stream"
+      }
+      timeout: {seconds: 0}
     };
-  };
+  }
 
   rpc StreamPolicy(StreamPolicyRequest) returns (stream StreamPolicyResponse) {
     option (natsmicro.endpoint) = {
-      metadata: { key: "operation" value: "stream" }
-      timeout: { seconds: 0 }
+      metadata: {
+        key: "operation"
+        value: "stream"
+      }
+      timeout: {seconds: 0}
     };
-  };
+  }
 
   rpc SubmitIntent(SubmitIntentRequest) returns (SubmitIntentResponse) {
     option (natsmicro.endpoint) = {
-      metadata: { key: "operation" value: "write" }
-      timeout: { seconds: 5 }
+      metadata: {
+        key: "operation"
+        value: "write"
+      }
+      timeout: {seconds: 5}
     };
-  };
+  }
 
   rpc ReportFill(ReportFillRequest) returns (ReportFillResponse) {
     option (natsmicro.endpoint) = {
-      metadata: { key: "operation" value: "write" }
-      timeout: { seconds: 5 }
+      metadata: {
+        key: "operation"
+        value: "write"
+      }
+      timeout: {seconds: 5}
     };
-  };
+  }
 
   rpc ReportOrderUpdate(ReportOrderUpdateRequest) returns (ReportOrderUpdateResponse) {
     option (natsmicro.endpoint) = {
-      metadata: { key: "operation" value: "write" }
-      timeout: { seconds: 5 }
+      metadata: {
+        key: "operation"
+        value: "write"
+      }
+      timeout: {seconds: 5}
     };
-  };
+  }
 }
 
 // HubAdminService exposes operational controls (kill switches, config hot-reload hooks).
@@ -76,17 +97,23 @@ service HubAdminService {
 
   rpc SetKillSwitch(SetKillSwitchRequest) returns (SetKillSwitchResponse) {
     option (natsmicro.endpoint) = {
-      metadata: { key: "operation" value: "admin" }
-      timeout: { seconds: 3 }
+      metadata: {
+        key: "operation"
+        value: "admin"
+      }
+      timeout: {seconds: 3}
     };
-  };
+  }
 
   rpc GetKillSwitch(GetKillSwitchRequest) returns (GetKillSwitchResponse) {
     option (natsmicro.endpoint) = {
-      metadata: { key: "operation" value: "read" }
-      timeout: { seconds: 3 }
+      metadata: {
+        key: "operation"
+        value: "read"
+      }
+      timeout: {seconds: 3}
     };
-  };
+  }
 }
 
 // --- Fair value ---

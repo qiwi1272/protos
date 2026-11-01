@@ -1,20 +1,13 @@
 name: Release
 
+# Manual only: Actions → Release → Run workflow, then enter the version.
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "**/*.proto"
-      - "buf.yaml"
-      - "buf.lock"
-      - "buf.gen.yaml"
-      - "Makefile"
-      - "go.mod"
-      - "go.sum"
-      - ".github/workflows/**"
-      - ".gen/dex/*"
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release, e.g. 0.2.0 (no leading v)"
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -41,4 +34,6 @@ jobs:
       - name: Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: make release
+          NEW_VERSION: ${{ inputs.version }}
+        run: |
+          make release NEW_VERSION="$NEW_VERSION"

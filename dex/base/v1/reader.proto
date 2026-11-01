@@ -1,19 +1,19 @@
 syntax = "proto3";
 
-option go_package = "github.com/qiwi1272/protos/gen/dex/base/v1;pb";
-
 package dex.base.v1;
 
-import "dex/base/v1/base.proto";
 import "dex/base/status/v1/status.proto";
+import "dex/base/v1/base.proto";
 import "natsmicro/options.proto";
+
+option go_package = "github.com/qiwi1272/protos/gen/dex/base/v1;pb";
 
 // provide real-time updates from decentralised exchanges
 service ReaderService {
   option (natsmicro.service) = {
-    subject_prefix : "reader"
-    name : "dex_reader_service"
-    version : "0.0.1"
+    subject_prefix: "reader"
+    name: "dex_reader_service"
+    version: "0.0.1"
   };
 
   // DexAsset retrieves a snapshot of assets from specified decentralized exchanges
@@ -23,9 +23,9 @@ service ReaderService {
         key: "operation"
         value: "read"
       }
-      timeout : {seconds : 3}
+      timeout: {seconds: 3}
     };
-  };
+  }
 
   // Long-lived streaming RPCs
   // Each provides continuous updates for a data type
@@ -42,14 +42,14 @@ service ReaderService {
   rpc StreamMids(StreamMidsRequest) returns (stream StreamMidsResponse) {}
 
   // provide a unified stream of multiple types (assets, margins, positions, diffs, and mids) based on filter criteria
-  rpc Stream(StreamRequest) returns (stream StreamResponse) {};
+  rpc Stream(StreamRequest) returns (stream StreamResponse) {}
 
   // internal producers to submit streaming data that should be batched and processed
-  rpc Upstream(stream UpstreamRequest) returns (UpstreamResponse) {};
+  rpc Upstream(stream UpstreamRequest) returns (UpstreamResponse) {}
 
   // Downstream aggregates submissions from multiple sources, allowing one unified reader stream
   // even when different binaries handle different payload types
-  rpc Downstream(stream DownstreamRequest) returns (stream DownstreamResponse) {};
+  rpc Downstream(stream DownstreamRequest) returns (stream DownstreamResponse) {}
 }
 
 enum PayloadKind {
@@ -60,7 +60,6 @@ enum PayloadKind {
   PAYLOAD_KIND_ASSET = 4;
   PAYLOAD_KIND_MIDS = 5;
 }
-
 
 message StreamRequest {
   repeated Dex dexes = 1;
@@ -80,31 +79,31 @@ message StreamResponse {
 }
 
 message UpstreamRequest {
-    Dex dex = 1;
-    PayloadKind kind = 2;
-    oneof payload {
-        Asset a = 3;
-        Margin m = 4;
-        Position p = 5;
-        BookDiffStream d = 6;
-        Mid md = 7;
-    }
+  Dex dex = 1;
+  PayloadKind kind = 2;
+  oneof payload {
+    Asset a = 3;
+    Margin m = 4;
+    Position p = 5;
+    BookDiffStream d = 6;
+    Mid md = 7;
+  }
 }
 
 message UpstreamResponse {
-    dex.base.status.v1.Status status = 1;
+  dex.base.status.v1.Status status = 1;
 }
 
 message DownstreamRequest {
-    Dex dex = 1;
-    PayloadKind kind = 2;
-    oneof payload {
-        Asset a = 3;
-        Margin m = 4;
-        Position p = 5;
-        BookDiffStream d = 6;
-        Mid md = 7;
-    }
+  Dex dex = 1;
+  PayloadKind kind = 2;
+  oneof payload {
+    Asset a = 3;
+    Margin m = 4;
+    Position p = 5;
+    BookDiffStream d = 6;
+    Mid md = 7;
+  }
 }
 
 message DownstreamResponse {
@@ -125,7 +124,7 @@ message DexAssetRequest {
 }
 
 message DexAssetResponse {
-    repeated Asset a = 1;
+  repeated Asset a = 1;
 }
 
 message StreamAssetRequest {

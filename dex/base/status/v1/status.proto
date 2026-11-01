@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-option go_package = "github.com/qiwi1272/protos/gen/dex/base/status/v1;pb";
-
 package dex.base.status.v1;
 
+option go_package = "github.com/qiwi1272/protos/gen/dex/base/status/v1;pb";
+
 message Status {
-    bool ok = 1;
-    string code = 2;
+  bool ok = 1;
+  string code = 2;
 }
