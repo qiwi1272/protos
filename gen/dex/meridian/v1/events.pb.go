@@ -7,7 +7,6 @@
 package pb
 
 import (
-	v11 "github.com/qiwi1272/protos/gen/dex/base/order_enum/v1"
 	v1 "github.com/qiwi1272/protos/gen/dex/base/status/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -924,7 +923,7 @@ type TradeFill_Data_Fill struct {
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Px            string                 `protobuf:"bytes,2,opt,name=px,proto3" json:"px,omitempty"`
 	Sz            string                 `protobuf:"bytes,3,opt,name=sz,proto3" json:"sz,omitempty"`
-	Sd            v11.Side               `protobuf:"varint,4,opt,name=sd,proto3,enum=dex.base.order_enum.v1.Side" json:"sd,omitempty"`
+	Sd            uint32                 `protobuf:"varint,4,opt,name=sd,proto3" json:"sd,omitempty"`    // taker side: 0=BUY, 1=SELL
 	Sids          []string               `protobuf:"bytes,5,rep,name=sids,proto3" json:"sids,omitempty"` // [taker maker]
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -981,11 +980,11 @@ func (x *TradeFill_Data_Fill) GetSz() string {
 	return ""
 }
 
-func (x *TradeFill_Data_Fill) GetSd() v11.Side {
+func (x *TradeFill_Data_Fill) GetSd() uint32 {
 	if x != nil {
 		return x.Sd
 	}
-	return v11.Side(0)
+	return 0
 }
 
 func (x *TradeFill_Data_Fill) GetSids() []string {
@@ -999,7 +998,7 @@ type SubaccountLiquidation_Data struct {
 	state         protoimpl.MessageState                    `protogen:"open.v1"`
 	Sid           string                                    `protobuf:"bytes,1,opt,name=sid,proto3" json:"sid,omitempty"`
 	T             int64                                     `protobuf:"varint,2,opt,name=t,proto3" json:"t,omitempty"`
-	P             []*SubaccountLiquidation_Data_Liquidation `protobuf:"bytes,3,rep,name=p,proto3" json:"p,omitempty"`
+	P             []*SubaccountLiquidation_Data_Liquidation `protobuf:"bytes,3,rep,name=p,json=d,proto3" json:"p,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1172,13 +1171,14 @@ type PositionUpdate_Data_Update struct {
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Sid           string                 `protobuf:"bytes,2,opt,name=sid,proto3" json:"sid,omitempty"`
 	S             string                 `protobuf:"bytes,3,opt,name=s,proto3" json:"s,omitempty"`
-	Side          v11.Side               `protobuf:"varint,4,opt,name=side,proto3,enum=dex.base.order_enum.v1.Side" json:"side,omitempty"`
+	Side          uint32                 `protobuf:"varint,4,opt,name=side,json=sd,proto3" json:"side,omitempty"` // 0=BUY, 1=SELL
 	Sz            string                 `protobuf:"bytes,5,opt,name=sz,proto3" json:"sz,omitempty"`
 	Cost          string                 `protobuf:"bytes,6,opt,name=cost,proto3" json:"cost,omitempty"`
 	Rpnl          string                 `protobuf:"bytes,8,opt,name=rpnl,proto3" json:"rpnl,omitempty"`
 	Fpnl          string                 `protobuf:"bytes,9,opt,name=fpnl,proto3" json:"fpnl,omitempty"`
 	Fee           string                 `protobuf:"bytes,10,opt,name=fee,proto3" json:"fee,omitempty"`
 	Lpx           *string                `protobuf:"bytes,11,opt,name=lpx,proto3,oneof" json:"lpx,omitempty"`
+	Pfee          string                 `protobuf:"bytes,12,opt,name=pfee,proto3" json:"pfee,omitempty"` // accrued position fee
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1234,11 +1234,11 @@ func (x *PositionUpdate_Data_Update) GetS() string {
 	return ""
 }
 
-func (x *PositionUpdate_Data_Update) GetSide() v11.Side {
+func (x *PositionUpdate_Data_Update) GetSide() uint32 {
 	if x != nil {
 		return x.Side
 	}
-	return v11.Side(0)
+	return 0
 }
 
 func (x *PositionUpdate_Data_Update) GetSz() string {
@@ -1279,6 +1279,13 @@ func (x *PositionUpdate_Data_Update) GetFee() string {
 func (x *PositionUpdate_Data_Update) GetLpx() string {
 	if x != nil && x.Lpx != nil {
 		return *x.Lpx
+	}
+	return ""
+}
+
+func (x *PositionUpdate_Data_Update) GetPfee() string {
+	if x != nil {
+		return x.Pfee
 	}
 	return ""
 }
@@ -1339,12 +1346,12 @@ type OrderUpdate_Data_Update struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Cloid         string                 `protobuf:"bytes,2,opt,name=cloid,proto3" json:"cloid,omitempty"`
-	Otyp          v11.OrderType          `protobuf:"varint,3,opt,name=otyp,proto3,enum=dex.base.order_enum.v1.OrderType" json:"otyp,omitempty"`
+	Otyp          string                 `protobuf:"bytes,3,opt,name=otyp,proto3" json:"otyp,omitempty"` // LIMIT | MARKET
 	Qty           string                 `protobuf:"bytes,4,opt,name=qty,proto3" json:"qty,omitempty"`
 	Aqty          string                 `protobuf:"bytes,5,opt,name=aqty,proto3" json:"aqty,omitempty"`
 	Fill          string                 `protobuf:"bytes,6,opt,name=fill,proto3" json:"fill,omitempty"`
 	Px            *string                `protobuf:"bytes,7,opt,name=px,proto3,oneof" json:"px,omitempty"`
-	Side          v11.Side               `protobuf:"varint,8,opt,name=side,proto3,enum=dex.base.order_enum.v1.Side" json:"side,omitempty"`
+	Side          uint32                 `protobuf:"varint,8,opt,name=side,json=sd,proto3" json:"side,omitempty"` // 0=BUY, 1=SELL
 	S             string                 `protobuf:"bytes,9,opt,name=s,proto3" json:"s,omitempty"`
 	Sid           string                 `protobuf:"bytes,10,opt,name=sid,proto3" json:"sid,omitempty"`
 	Sn            string                 `protobuf:"bytes,11,opt,name=sn,proto3" json:"sn,omitempty"`
@@ -1361,6 +1368,7 @@ type OrderUpdate_Data_Update struct {
 	Tr            string                 `protobuf:"bytes,22,opt,name=tr,proto3" json:"tr,omitempty"`
 	Gtyp          *uint64                `protobuf:"varint,23,opt,name=gtyp,proto3,oneof" json:"gtyp,omitempty"`
 	Gid           string                 `protobuf:"bytes,24,opt,name=gid,proto3" json:"gid,omitempty"`
+	Rr            *string                `protobuf:"bytes,25,opt,name=rr,proto3,oneof" json:"rr,omitempty"` // rejection reason
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1409,11 +1417,11 @@ func (x *OrderUpdate_Data_Update) GetCloid() string {
 	return ""
 }
 
-func (x *OrderUpdate_Data_Update) GetOtyp() v11.OrderType {
+func (x *OrderUpdate_Data_Update) GetOtyp() string {
 	if x != nil {
 		return x.Otyp
 	}
-	return v11.OrderType(0)
+	return ""
 }
 
 func (x *OrderUpdate_Data_Update) GetQty() string {
@@ -1444,11 +1452,11 @@ func (x *OrderUpdate_Data_Update) GetPx() string {
 	return ""
 }
 
-func (x *OrderUpdate_Data_Update) GetSide() v11.Side {
+func (x *OrderUpdate_Data_Update) GetSide() uint32 {
 	if x != nil {
 		return x.Side
 	}
-	return v11.Side(0)
+	return 0
 }
 
 func (x *OrderUpdate_Data_Update) GetS() string {
@@ -1563,6 +1571,13 @@ func (x *OrderUpdate_Data_Update) GetGid() string {
 	return ""
 }
 
+func (x *OrderUpdate_Data_Update) GetRr() string {
+	if x != nil && x.Rr != nil {
+		return *x.Rr
+	}
+	return ""
+}
+
 type OrderFill_Data struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	T             int64                  `protobuf:"varint,1,opt,name=t,proto3" json:"t,omitempty"`
@@ -1618,18 +1633,18 @@ func (x *OrderFill_Data) GetD() []*OrderFill_Data_Fill {
 type OrderFill_Data_Fill struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	OrderId       string                 `protobuf:"bytes,2,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	ClientOrderId string                 `protobuf:"bytes,3,opt,name=client_order_id,json=clientOrderId,proto3" json:"client_order_id,omitempty"`
-	Price         string                 `protobuf:"bytes,4,opt,name=price,proto3" json:"price,omitempty"`
-	Filled        string                 `protobuf:"bytes,5,opt,name=filled,proto3" json:"filled,omitempty"`
-	Type          string                 `protobuf:"bytes,6,opt,name=type,proto3" json:"type,omitempty"`
-	Side          v11.Side               `protobuf:"varint,7,opt,name=side,proto3,enum=dex.base.order_enum.v1.Side" json:"side,omitempty"`
-	ReduceOnly    bool                   `protobuf:"varint,8,opt,name=reduce_only,json=reduceOnly,proto3" json:"reduce_only,omitempty"`
-	FeeUsd        string                 `protobuf:"bytes,9,opt,name=fee_usd,json=feeUsd,proto3" json:"fee_usd,omitempty"`
-	IsMaker       bool                   `protobuf:"varint,10,opt,name=is_maker,json=isMaker,proto3" json:"is_maker,omitempty"`
-	ProductId     string                 `protobuf:"bytes,11,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	SubaccountId  string                 `protobuf:"bytes,12,opt,name=subaccount_id,json=subaccountId,proto3" json:"subaccount_id,omitempty"`
-	CreatedAt     int64                  `protobuf:"varint,13,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	OrderId       string                 `protobuf:"bytes,2,opt,name=order_id,json=oid,proto3" json:"order_id,omitempty"`
+	ClientOrderId string                 `protobuf:"bytes,3,opt,name=client_order_id,json=cloid,proto3" json:"client_order_id,omitempty"`
+	Price         string                 `protobuf:"bytes,4,opt,name=price,json=px,proto3" json:"price,omitempty"`
+	Filled        string                 `protobuf:"bytes,5,opt,name=filled,json=sz,proto3" json:"filled,omitempty"`
+	Type          string                 `protobuf:"bytes,6,opt,name=type,json=typ,proto3" json:"type,omitempty"` // LIMIT | MARKET
+	Side          uint32                 `protobuf:"varint,7,opt,name=side,json=sd,proto3" json:"side,omitempty"` // 0=BUY, 1=SELL
+	ReduceOnly    bool                   `protobuf:"varint,8,opt,name=reduce_only,json=ro,proto3" json:"reduce_only,omitempty"`
+	FeeUsd        string                 `protobuf:"bytes,9,opt,name=fee_usd,json=fee,proto3" json:"fee_usd,omitempty"`
+	IsMaker       bool                   `protobuf:"varint,10,opt,name=is_maker,json=m,proto3" json:"is_maker,omitempty"`
+	ProductId     string                 `protobuf:"bytes,11,opt,name=product_id,json=s,proto3" json:"product_id,omitempty"` // symbol, e.g. BTCUSD
+	SubaccountId  string                 `protobuf:"bytes,12,opt,name=subaccount_id,json=sid,proto3" json:"subaccount_id,omitempty"`
+	CreatedAt     int64                  `protobuf:"varint,13,opt,name=created_at,json=t,proto3" json:"created_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1706,11 +1721,11 @@ func (x *OrderFill_Data_Fill) GetType() string {
 	return ""
 }
 
-func (x *OrderFill_Data_Fill) GetSide() v11.Side {
+func (x *OrderFill_Data_Fill) GetSide() uint32 {
 	if x != nil {
 		return x.Side
 	}
-	return v11.Side(0)
+	return 0
 }
 
 func (x *OrderFill_Data_Fill) GetReduceOnly() bool {
@@ -1770,7 +1785,10 @@ type TokenTransfer_Data struct {
 	IniTx         *string                `protobuf:"bytes,11,opt,name=ini_tx,json=iniTx,proto3,oneof" json:"ini_tx,omitempty"`
 	FinTx         *string                `protobuf:"bytes,12,opt,name=fin_tx,json=finTx,proto3,oneof" json:"fin_tx,omitempty"`
 	LzAddr        *string                `protobuf:"bytes,13,opt,name=lz_addr,json=lzAddr,proto3,oneof" json:"lz_addr,omitempty"`
-	LzEid         *string                `protobuf:"bytes,14,opt,name=lz_eid,json=lzEid,proto3,oneof" json:"lz_eid,omitempty"`
+	LzEid         *uint32                `protobuf:"varint,14,opt,name=lz_eid,json=lzEid,proto3,oneof" json:"lz_eid,omitempty"`        // LayerZero endpoint id (JSON number)
+	T             int64                  `protobuf:"varint,15,opt,name=t,proto3" json:"t,omitempty"`                                   // transfer-event time, epoch ms
+	ToTName       *string                `protobuf:"bytes,16,opt,name=to_t_name,json=toTName,proto3,oneof" json:"to_t_name,omitempty"` // conversion destination token
+	ToTAddr       *string                `protobuf:"bytes,17,opt,name=to_t_addr,json=toTAddr,proto3,oneof" json:"to_t_addr,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1896,9 +1914,30 @@ func (x *TokenTransfer_Data) GetLzAddr() string {
 	return ""
 }
 
-func (x *TokenTransfer_Data) GetLzEid() string {
+func (x *TokenTransfer_Data) GetLzEid() uint32 {
 	if x != nil && x.LzEid != nil {
 		return *x.LzEid
+	}
+	return 0
+}
+
+func (x *TokenTransfer_Data) GetT() int64 {
+	if x != nil {
+		return x.T
+	}
+	return 0
+}
+
+func (x *TokenTransfer_Data) GetToTName() string {
+	if x != nil && x.ToTName != nil {
+		return *x.ToTName
+	}
+	return ""
+}
+
+func (x *TokenTransfer_Data) GetToTAddr() string {
+	if x != nil && x.ToTAddr != nil {
+		return *x.ToTAddr
 	}
 	return ""
 }
@@ -1907,7 +1946,7 @@ var File_dex_meridian_v1_events_proto protoreflect.FileDescriptor
 
 const file_dex_meridian_v1_events_proto_rawDesc = "" +
 	"\n" +
-	"\x1cdex/meridian/v1/events.proto\x12\x0fdex.meridian.v1\x1a\x1fdex/base/status/v1/status.proto\x1a'dex/base/order_enum/v1/order_enum.proto\x1a\x1cgoogle/protobuf/struct.proto\"\x1c\n" +
+	"\x1cdex/meridian/v1/events.proto\x12\x0fdex.meridian.v1\x1a\x1fdex/base/status/v1/status.proto\x1a\x1cgoogle/protobuf/struct.proto\"\x1c\n" +
 	"\fEventMessage\x12\f\n" +
 	"\x01e\x18\x01 \x01(\tR\x01e\"E\n" +
 	"\x0fWebsocketStatus\x122\n" +
@@ -1951,20 +1990,20 @@ const file_dex_meridian_v1_events_proto_rawDesc = "" +
 	"\f_mark_px_24hB\x05\n" +
 	"\x03_oiB\a\n" +
 	"\x05_fr1hB\t\n" +
-	"\a_vol24h\"\xaf\x02\n" +
+	"\a_vol24h\"\x91\x02\n" +
 	"\tTradeFill\x12\f\n" +
 	"\x01e\x18\x01 \x01(\tR\x01e\x12\f\n" +
 	"\x01t\x18\x02 \x01(\x03R\x01t\x123\n" +
-	"\x04data\x18\x03 \x01(\v2\x1f.dex.meridian.v1.TradeFill.DataR\x04data\x1a\xd0\x01\n" +
+	"\x04data\x18\x03 \x01(\v2\x1f.dex.meridian.v1.TradeFill.DataR\x04data\x1a\xb2\x01\n" +
 	"\x04Data\x12\f\n" +
 	"\x01s\x18\x01 \x01(\tR\x01s\x12\f\n" +
 	"\x01t\x18\x02 \x01(\x03R\x01t\x122\n" +
-	"\x01d\x18\x03 \x03(\v2$.dex.meridian.v1.TradeFill.Data.FillR\x01d\x1ax\n" +
+	"\x01d\x18\x03 \x03(\v2$.dex.meridian.v1.TradeFill.Data.FillR\x01d\x1aZ\n" +
 	"\x04Fill\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x0e\n" +
 	"\x02px\x18\x02 \x01(\tR\x02px\x12\x0e\n" +
-	"\x02sz\x18\x03 \x01(\tR\x02sz\x12,\n" +
-	"\x02sd\x18\x04 \x01(\x0e2\x1c.dex.base.order_enum.v1.SideR\x02sd\x12\x12\n" +
+	"\x02sz\x18\x03 \x01(\tR\x02sz\x12\x0e\n" +
+	"\x02sd\x18\x04 \x01(\rR\x02sd\x12\x12\n" +
 	"\x04sids\x18\x05 \x03(\tR\x04sids\"\xa1\x02\n" +
 	"\x15SubaccountLiquidation\x12\f\n" +
 	"\x01e\x18\x01 \x01(\tR\x01e\x12\f\n" +
@@ -1973,47 +2012,48 @@ const file_dex_meridian_v1_events_proto_rawDesc = "" +
 	"\x04Data\x12\x10\n" +
 	"\x03sid\x18\x01 \x01(\tR\x03sid\x12\f\n" +
 	"\x01t\x18\x02 \x01(\x03R\x01t\x12E\n" +
-	"\x01p\x18\x03 \x03(\v27.dex.meridian.v1.SubaccountLiquidation.Data.LiquidationR\x01p\x1a;\n" +
+	"\x01p\x18\x03 \x03(\v27.dex.meridian.v1.SubaccountLiquidation.Data.LiquidationR\x01d\x1a;\n" +
 	"\vLiquidation\x12\f\n" +
 	"\x01s\x18\x01 \x01(\tR\x01s\x12\x0e\n" +
 	"\x02px\x18\x02 \x01(\tR\x02px\x12\x0e\n" +
-	"\x02sz\x18\x03 \x01(\tR\x02sz\"\xa2\x03\n" +
+	"\x02sz\x18\x03 \x01(\tR\x02sz\"\x96\x03\n" +
 	"\x0ePositionUpdate\x12\f\n" +
 	"\x01e\x18\x01 \x01(\tR\x01e\x12\f\n" +
 	"\x01t\x18\x02 \x01(\x03R\x01t\x128\n" +
-	"\x04data\x18\x03 \x01(\v2$.dex.meridian.v1.PositionUpdate.DataR\x04data\x1a\xb9\x02\n" +
+	"\x04data\x18\x03 \x01(\v2$.dex.meridian.v1.PositionUpdate.DataR\x04data\x1a\xad\x02\n" +
 	"\x04Data\x12\f\n" +
 	"\x01t\x18\x01 \x01(\x03R\x01t\x129\n" +
-	"\x01d\x18\x02 \x03(\v2+.dex.meridian.v1.PositionUpdate.Data.UpdateR\x01d\x1a\xe7\x01\n" +
+	"\x01d\x18\x02 \x03(\v2+.dex.meridian.v1.PositionUpdate.Data.UpdateR\x01d\x1a\xdb\x01\n" +
 	"\x06Update\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x10\n" +
 	"\x03sid\x18\x02 \x01(\tR\x03sid\x12\f\n" +
-	"\x01s\x18\x03 \x01(\tR\x01s\x120\n" +
-	"\x04side\x18\x04 \x01(\x0e2\x1c.dex.base.order_enum.v1.SideR\x04side\x12\x0e\n" +
+	"\x01s\x18\x03 \x01(\tR\x01s\x12\x10\n" +
+	"\x04side\x18\x04 \x01(\rR\x02sd\x12\x0e\n" +
 	"\x02sz\x18\x05 \x01(\tR\x02sz\x12\x12\n" +
 	"\x04cost\x18\x06 \x01(\tR\x04cost\x12\x12\n" +
 	"\x04rpnl\x18\b \x01(\tR\x04rpnl\x12\x12\n" +
 	"\x04fpnl\x18\t \x01(\tR\x04fpnl\x12\x10\n" +
 	"\x03fee\x18\n" +
 	" \x01(\tR\x03fee\x12\x15\n" +
-	"\x03lpx\x18\v \x01(\tH\x00R\x03lpx\x88\x01\x01B\x06\n" +
-	"\x04_lpx\"\x85\x06\n" +
+	"\x03lpx\x18\v \x01(\tH\x00R\x03lpx\x88\x01\x01\x12\x12\n" +
+	"\x04pfee\x18\f \x01(\tR\x04pfeeB\x06\n" +
+	"\x04_lpx\"\xde\x05\n" +
 	"\vOrderUpdate\x12\f\n" +
 	"\x01e\x18\x01 \x01(\tR\x01e\x12\f\n" +
 	"\x01t\x18\x02 \x01(\x03R\x01t\x125\n" +
-	"\x04data\x18\x03 \x01(\v2!.dex.meridian.v1.OrderUpdate.DataR\x04data\x1a\xa2\x05\n" +
+	"\x04data\x18\x03 \x01(\v2!.dex.meridian.v1.OrderUpdate.DataR\x04data\x1a\xfb\x04\n" +
 	"\x04Data\x12\f\n" +
 	"\x01t\x18\x01 \x01(\x03R\x01t\x126\n" +
-	"\x01d\x18\x02 \x03(\v2(.dex.meridian.v1.OrderUpdate.Data.UpdateR\x01d\x1a\xd3\x04\n" +
+	"\x01d\x18\x02 \x03(\v2(.dex.meridian.v1.OrderUpdate.Data.UpdateR\x01d\x1a\xac\x04\n" +
 	"\x06Update\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
-	"\x05cloid\x18\x02 \x01(\tR\x05cloid\x125\n" +
-	"\x04otyp\x18\x03 \x01(\x0e2!.dex.base.order_enum.v1.OrderTypeR\x04otyp\x12\x10\n" +
+	"\x05cloid\x18\x02 \x01(\tR\x05cloid\x12\x12\n" +
+	"\x04otyp\x18\x03 \x01(\tR\x04otyp\x12\x10\n" +
 	"\x03qty\x18\x04 \x01(\tR\x03qty\x12\x12\n" +
 	"\x04aqty\x18\x05 \x01(\tR\x04aqty\x12\x12\n" +
 	"\x04fill\x18\x06 \x01(\tR\x04fill\x12\x13\n" +
-	"\x02px\x18\a \x01(\tH\x00R\x02px\x88\x01\x01\x120\n" +
-	"\x04side\x18\b \x01(\x0e2\x1c.dex.base.order_enum.v1.SideR\x04side\x12\f\n" +
+	"\x02px\x18\a \x01(\tH\x00R\x02px\x88\x01\x01\x12\x10\n" +
+	"\x04side\x18\b \x01(\rR\x02sd\x12\f\n" +
 	"\x01s\x18\t \x01(\tR\x01s\x12\x10\n" +
 	"\x03sid\x18\n" +
 	" \x01(\tR\x03sid\x12\x0e\n" +
@@ -2030,43 +2070,44 @@ const file_dex_meridian_v1_events_proto_rawDesc = "" +
 	"\x06spxtyp\x18\x15 \x01(\x04H\x05R\x06spxtyp\x88\x01\x01\x12\x0e\n" +
 	"\x02tr\x18\x16 \x01(\tR\x02tr\x12\x17\n" +
 	"\x04gtyp\x18\x17 \x01(\x04H\x06R\x04gtyp\x88\x01\x01\x12\x10\n" +
-	"\x03gid\x18\x18 \x01(\tR\x03gidB\x05\n" +
+	"\x03gid\x18\x18 \x01(\tR\x03gid\x12\x13\n" +
+	"\x02rr\x18\x19 \x01(\tH\aR\x02rr\x88\x01\x01B\x05\n" +
 	"\x03_pxB\x06\n" +
 	"\x04_tifB\x05\n" +
 	"\x03_poB\x06\n" +
 	"\x04_spxB\a\n" +
 	"\x05_stypB\t\n" +
 	"\a_spxtypB\a\n" +
-	"\x05_gtyp\"\xaf\x04\n" +
+	"\x05_gtypB\x05\n" +
+	"\x03_rr\"\xd1\x03\n" +
 	"\tOrderFill\x12\f\n" +
 	"\x01e\x18\x01 \x01(\tR\x01e\x12\f\n" +
 	"\x01t\x18\x02 \x01(\x03R\x01t\x123\n" +
-	"\x04data\x18\x03 \x01(\v2\x1f.dex.meridian.v1.OrderFill.DataR\x04data\x1a\xd0\x03\n" +
+	"\x04data\x18\x03 \x01(\v2\x1f.dex.meridian.v1.OrderFill.DataR\x04data\x1a\xf2\x02\n" +
 	"\x04Data\x12\f\n" +
 	"\x01t\x18\x01 \x01(\x03R\x01t\x122\n" +
-	"\x01d\x18\x02 \x03(\v2$.dex.meridian.v1.OrderFill.Data.FillR\x01d\x1a\x85\x03\n" +
+	"\x01d\x18\x02 \x03(\v2$.dex.meridian.v1.OrderFill.Data.FillR\x01d\x1a\xa7\x02\n" +
 	"\x04Fill\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
-	"\border_id\x18\x02 \x01(\tR\aorderId\x12&\n" +
-	"\x0fclient_order_id\x18\x03 \x01(\tR\rclientOrderId\x12\x14\n" +
-	"\x05price\x18\x04 \x01(\tR\x05price\x12\x16\n" +
-	"\x06filled\x18\x05 \x01(\tR\x06filled\x12\x12\n" +
-	"\x04type\x18\x06 \x01(\tR\x04type\x120\n" +
-	"\x04side\x18\a \x01(\x0e2\x1c.dex.base.order_enum.v1.SideR\x04side\x12\x1f\n" +
-	"\vreduce_only\x18\b \x01(\bR\n" +
-	"reduceOnly\x12\x17\n" +
-	"\afee_usd\x18\t \x01(\tR\x06feeUsd\x12\x19\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x15\n" +
+	"\border_id\x18\x02 \x01(\tR\x03oid\x12\x1e\n" +
+	"\x0fclient_order_id\x18\x03 \x01(\tR\x05cloid\x12\x11\n" +
+	"\x05price\x18\x04 \x01(\tR\x02px\x12\x12\n" +
+	"\x06filled\x18\x05 \x01(\tR\x02sz\x12\x11\n" +
+	"\x04type\x18\x06 \x01(\tR\x03typ\x12\x10\n" +
+	"\x04side\x18\a \x01(\rR\x02sd\x12\x17\n" +
+	"\vreduce_only\x18\b \x01(\bR\x02ro\x12\x14\n" +
+	"\afee_usd\x18\t \x01(\tR\x03fee\x12\x13\n" +
 	"\bis_maker\x18\n" +
-	" \x01(\bR\aisMaker\x12\x1d\n" +
+	" \x01(\bR\x01m\x12\x15\n" +
 	"\n" +
-	"product_id\x18\v \x01(\tR\tproductId\x12#\n" +
-	"\rsubaccount_id\x18\f \x01(\tR\fsubaccountId\x12\x1d\n" +
+	"product_id\x18\v \x01(\tR\x01s\x12\x1a\n" +
+	"\rsubaccount_id\x18\f \x01(\tR\x03sid\x12\x15\n" +
 	"\n" +
-	"created_at\x18\r \x01(\x03R\tcreatedAt\"\xf0\x03\n" +
+	"created_at\x18\r \x01(\x03R\x01t\"\xdc\x04\n" +
 	"\rTokenTransfer\x12\f\n" +
 	"\x01e\x18\x01 \x01(\tR\x01e\x12\f\n" +
 	"\x01t\x18\x02 \x01(\x03R\x01t\x127\n" +
-	"\x04data\x18\x03 \x01(\v2#.dex.meridian.v1.TokenTransfer.DataR\x04data\x1a\x89\x03\n" +
+	"\x04data\x18\x03 \x01(\v2#.dex.meridian.v1.TokenTransfer.DataR\x04data\x1a\xf5\x03\n" +
 	"\x04Data\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x10\n" +
 	"\x03sid\x18\x02 \x01(\tR\x03sid\x12\x15\n" +
@@ -2082,14 +2123,21 @@ const file_dex_meridian_v1_events_proto_rawDesc = "" +
 	"\x06ini_tx\x18\v \x01(\tH\x02R\x05iniTx\x88\x01\x01\x12\x1a\n" +
 	"\x06fin_tx\x18\f \x01(\tH\x03R\x05finTx\x88\x01\x01\x12\x1c\n" +
 	"\alz_addr\x18\r \x01(\tH\x04R\x06lzAddr\x88\x01\x01\x12\x1a\n" +
-	"\x06lz_eid\x18\x0e \x01(\tH\x05R\x05lzEid\x88\x01\x01B\t\n" +
+	"\x06lz_eid\x18\x0e \x01(\rH\x05R\x05lzEid\x88\x01\x01\x12\f\n" +
+	"\x01t\x18\x0f \x01(\x03R\x01t\x12\x1f\n" +
+	"\tto_t_name\x18\x10 \x01(\tH\x06R\atoTName\x88\x01\x01\x12\x1f\n" +
+	"\tto_t_addr\x18\x11 \x01(\tH\aR\atoTAddr\x88\x01\x01B\t\n" +
 	"\a_ini_bkB\t\n" +
 	"\a_fin_bkB\t\n" +
 	"\a_ini_txB\t\n" +
 	"\a_fin_txB\n" +
 	"\n" +
 	"\b_lz_addrB\t\n" +
-	"\a_lz_eid*\x95\x02\n" +
+	"\a_lz_eidB\f\n" +
+	"\n" +
+	"_to_t_nameB\f\n" +
+	"\n" +
+	"_to_t_addr*\x95\x02\n" +
 	"\tEventType\x12 \n" +
 	"\x1cEVENT_TYPE_EVENT_UNSPECIFIED\x10\x00\x12\x16\n" +
 	"\x12EVENT_TYPE_L2_BOOK\x10\x01\x12\x15\n" +
@@ -2143,8 +2191,6 @@ var file_dex_meridian_v1_events_proto_goTypes = []any{
 	(*TokenTransfer_Data)(nil),                     // 23: dex.meridian.v1.TokenTransfer.Data
 	(*v1.Status)(nil),                              // 24: dex.base.status.v1.Status
 	(*structpb.ListValue)(nil),                     // 25: google.protobuf.ListValue
-	(v11.Side)(0),                                  // 26: dex.base.order_enum.v1.Side
-	(v11.OrderType)(0),                             // 27: dex.base.order_enum.v1.OrderType
 }
 var file_dex_meridian_v1_events_proto_depIdxs = []int32{
 	24, // 0: dex.meridian.v1.WebsocketStatus.status:type_name -> dex.base.status.v1.Status
@@ -2159,20 +2205,15 @@ var file_dex_meridian_v1_events_proto_depIdxs = []int32{
 	25, // 9: dex.meridian.v1.L2Book.Data.a:type_name -> google.protobuf.ListValue
 	25, // 10: dex.meridian.v1.L2Book.Data.b:type_name -> google.protobuf.ListValue
 	14, // 11: dex.meridian.v1.TradeFill.Data.d:type_name -> dex.meridian.v1.TradeFill.Data.Fill
-	26, // 12: dex.meridian.v1.TradeFill.Data.Fill.sd:type_name -> dex.base.order_enum.v1.Side
-	16, // 13: dex.meridian.v1.SubaccountLiquidation.Data.p:type_name -> dex.meridian.v1.SubaccountLiquidation.Data.Liquidation
-	18, // 14: dex.meridian.v1.PositionUpdate.Data.d:type_name -> dex.meridian.v1.PositionUpdate.Data.Update
-	26, // 15: dex.meridian.v1.PositionUpdate.Data.Update.side:type_name -> dex.base.order_enum.v1.Side
-	20, // 16: dex.meridian.v1.OrderUpdate.Data.d:type_name -> dex.meridian.v1.OrderUpdate.Data.Update
-	27, // 17: dex.meridian.v1.OrderUpdate.Data.Update.otyp:type_name -> dex.base.order_enum.v1.OrderType
-	26, // 18: dex.meridian.v1.OrderUpdate.Data.Update.side:type_name -> dex.base.order_enum.v1.Side
-	22, // 19: dex.meridian.v1.OrderFill.Data.d:type_name -> dex.meridian.v1.OrderFill.Data.Fill
-	26, // 20: dex.meridian.v1.OrderFill.Data.Fill.side:type_name -> dex.base.order_enum.v1.Side
-	21, // [21:21] is the sub-list for method output_type
-	21, // [21:21] is the sub-list for method input_type
-	21, // [21:21] is the sub-list for extension type_name
-	21, // [21:21] is the sub-list for extension extendee
-	0,  // [0:21] is the sub-list for field type_name
+	16, // 12: dex.meridian.v1.SubaccountLiquidation.Data.p:type_name -> dex.meridian.v1.SubaccountLiquidation.Data.Liquidation
+	18, // 13: dex.meridian.v1.PositionUpdate.Data.d:type_name -> dex.meridian.v1.PositionUpdate.Data.Update
+	20, // 14: dex.meridian.v1.OrderUpdate.Data.d:type_name -> dex.meridian.v1.OrderUpdate.Data.Update
+	22, // 15: dex.meridian.v1.OrderFill.Data.d:type_name -> dex.meridian.v1.OrderFill.Data.Fill
+	16, // [16:16] is the sub-list for method output_type
+	16, // [16:16] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() { file_dex_meridian_v1_events_proto_init() }

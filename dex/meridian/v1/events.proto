@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package dex.meridian.v1;
 
-import "dex/base/order_enum/v1/order_enum.proto";
 import "dex/base/status/v1/status.proto";
 import "google/protobuf/struct.proto";
 
@@ -70,7 +69,7 @@ message TradeFill {
       string id = 1;
       string px = 2;
       string sz = 3;
-      dex.base.order_enum.v1.Side sd = 4;
+      uint32 sd = 4; // taker side: 0=BUY, 1=SELL
       repeated string sids = 5; // [taker maker]
     }
     repeated Fill d = 3;
@@ -89,7 +88,7 @@ message SubaccountLiquidation {
       string px = 2;
       string sz = 3;
     }
-    repeated Liquidation p = 3;
+    repeated Liquidation p = 3 [json_name = "d"];
   }
   Data data = 3;
 }
@@ -103,13 +102,14 @@ message PositionUpdate {
       string id = 1;
       string sid = 2;
       string s = 3;
-      dex.base.order_enum.v1.Side side = 4;
+      uint32 side = 4 [json_name = "sd"]; // 0=BUY, 1=SELL
       string sz = 5;
       string cost = 6;
       string rpnl = 8;
       string fpnl = 9;
       string fee = 10;
       optional string lpx = 11;
+      string pfee = 12; // accrued position fee
     }
     repeated Update d = 2;
   }
@@ -124,12 +124,12 @@ message OrderUpdate {
     message Update {
       string id = 1;
       string cloid = 2;
-      dex.base.order_enum.v1.OrderType otyp = 3;
+      string otyp = 3; // LIMIT | MARKET
       string qty = 4;
       string aqty = 5;
       string fill = 6;
       optional string px = 7;
-      dex.base.order_enum.v1.Side side = 8;
+      uint32 side = 8 [json_name = "sd"]; // 0=BUY, 1=SELL
       string s = 9;
       string sid = 10;
       string sn = 11;
@@ -146,6 +146,7 @@ message OrderUpdate {
       string tr = 22;
       optional uint64 gtyp = 23;
       string gid = 24;
+      optional string rr = 25; // rejection reason
     }
     repeated Update d = 2;
   }
@@ -159,18 +160,18 @@ message OrderFill {
     int64 t = 1;
     message Fill {
       string id = 1;
-      string order_id = 2;
-      string client_order_id = 3;
-      string price = 4;
-      string filled = 5;
-      string type = 6;
-      dex.base.order_enum.v1.Side side = 7;
-      bool reduce_only = 8;
-      string fee_usd = 9;
-      bool is_maker = 10;
-      string product_id = 11;
-      string subaccount_id = 12;
-      int64 created_at = 13;
+      string order_id = 2 [json_name = "oid"];
+      string client_order_id = 3 [json_name = "cloid"];
+      string price = 4 [json_name = "px"];
+      string filled = 5 [json_name = "sz"];
+      string type = 6 [json_name = "typ"]; // LIMIT | MARKET
+      uint32 side = 7 [json_name = "sd"]; // 0=BUY, 1=SELL
+      bool reduce_only = 8 [json_name = "ro"];
+      string fee_usd = 9 [json_name = "fee"];
+      bool is_maker = 10 [json_name = "m"];
+      string product_id = 11 [json_name = "s"]; // symbol, e.g. BTCUSD
+      string subaccount_id = 12 [json_name = "sid"];
+      int64 created_at = 13 [json_name = "t"];
     }
     repeated Fill d = 2;
   }
@@ -194,7 +195,10 @@ message TokenTransfer {
     optional string ini_tx = 11;
     optional string fin_tx = 12;
     optional string lz_addr = 13;
-    optional string lz_eid = 14;
+    optional uint32 lz_eid = 14; // LayerZero endpoint id (JSON number)
+    int64 t = 15; // transfer-event time, epoch ms
+    optional string to_t_name = 16; // conversion destination token
+    optional string to_t_addr = 17;
   }
   Data data = 3;
 }
